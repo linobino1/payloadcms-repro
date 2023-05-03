@@ -1,4 +1,6 @@
-# app
+# Bug Repro querying nested properties in PayloadCMS
+
+This is a bug repro for querying nested properties of nested properties in PayloadCMS.
 
 This project was created using create-payload-app using the ts-blank template.
 
