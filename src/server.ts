@@ -42,9 +42,12 @@ const app = express();
   // 2. create a movie
   const movie = await payload.create({
     collection: 'movies',
+    depth: 2,
     data: {
       name: 'Pulp Fiction',
-      director: director.id,
+      directors: [
+        director.id,
+      ],
     },
   });
   console.log('created movie', movie);
@@ -52,6 +55,7 @@ const app = express();
   // 3. create a screening
   const screening = await payload.create({
     collection: 'screenings',
+    depth: 3,
     data: {
       movie: movie.id,
       name: 'Pulp Fiction Screening',
@@ -72,6 +76,7 @@ const app = express();
 
   const test2 = await payload.find({
     collection: 'screenings',
+    depth: 3,
     where: {
       'movie.name': {
         equals: 'Pulp Fiction',
@@ -81,13 +86,25 @@ const app = express();
   console.log('find screening by movie name', test2);
 
   const test3 = await payload.find({
-    collection: 'screenings',
+    collection: 'movies',
+    depth: 3,
     where: {
-      'movie.director.name': {
+      'directors.name': {
         equals: director.name,
       },
     },
   });
-  console.log('find screening by director name', test3);
+  console.log('find movie by director name', test3);
+
+  const test4 = await payload.find({
+    collection: 'screenings',
+    depth: 3,
+    where: {
+      'movie.directors.name': {
+        equals: director.name,
+      },
+    },
+  });
+  console.log('find screening by director name', test4);
 
 })();

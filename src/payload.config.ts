@@ -35,9 +35,10 @@ export default buildConfig({
           type: 'text',
         },
         {
-          name: 'director',
+          name: 'directors',
           type: 'relationship',
           relationTo: 'directors',
+          hasMany: true,
         },
       ],
     },
